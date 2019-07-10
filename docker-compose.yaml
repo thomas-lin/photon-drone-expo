@@ -1,0 +1,30 @@
+version: "3"
+services:
+  gitea:
+    image: gitea/gitea:1.9
+    ports:
+      - "10022:22"
+      - "3000:3000"
+    volumes:
+      - gitea-data:/data
+
+  drone:
+    image: drone/drone:1.2.1
+    links:
+      - gitea:gitea
+    ports:
+      - 8000:80
+    volumes:
+      - drone-data:/data:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_GITEA_SERVER=http://10.1.120.10:3000
+      - DRONE_GIT_ALWAYS_AUTH=false
+      - DRONE_RUNNER_CAPACITY=2
+      - DRONE_SERVER_PROTO=http
+      - DRONE_SERVER_HOST=10.1.120.10
+      - DRONE_TLS_AUTOCERT=false
+
+volumes:
+  drone-data:
+  gitea-data:
