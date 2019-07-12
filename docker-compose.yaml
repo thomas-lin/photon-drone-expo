@@ -10,10 +10,8 @@ services:
 
   drone:
     image: drone/drone:1.2.1
-    links:
-      - gitea:gitea
     ports:
-      - 8000:80
+      - "8000:80"
     volumes:
       - drone-data:/data:rw
       - /var/run/docker.sock:/var/run/docker.sock
@@ -22,8 +20,10 @@ services:
       - DRONE_GIT_ALWAYS_AUTH=false
       - DRONE_RUNNER_CAPACITY=2
       - DRONE_SERVER_PROTO=http
-      - DRONE_SERVER_HOST=10.1.120.10
+      - DRONE_SERVER_HOST=10.1.120.10:8000
       - DRONE_TLS_AUTOCERT=false
+      # for repo trusted
+      - DRONE_USER_CREATE=username:thomas,admin:true
 
 volumes:
   drone-data:

@@ -12,5 +12,10 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 docker-compose --version
 
-# ACCEPT all INPUT for container communication
+# ACCEPT for container communication to host, presist it.
 sudo iptables -P INPUT ACCEPT
+sudo iptables -P FORWARD ACCEPT
+
+# presist iptables
+echo "iptables -P INPUT ACCEPT" > /etc/systemd/scripts/iptables
+echo "iptables -P FORWARD ACCEPT" > /etc/systemd/scripts/iptables

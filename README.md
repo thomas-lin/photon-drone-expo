@@ -24,3 +24,7 @@ docker-compose up -d
 ## Initialize Drone and connect to Gitea
 - Open http://[HostIP]:8000 on browser
 - Login with user
+
+## Config Gitea webhook
+- Open repo on gitea
+- change webhook port to match drone (ie. 8000)
