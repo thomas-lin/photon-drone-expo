@@ -4,6 +4,66 @@ cd [project]
 vagrant up
 ```
 
+## !Important
+## How to fix VirtualGuestAddtion install failed, because the password is expired
+
+```
+vagrant ssh
+type 'vagrant' for current password
+type '[new password]'
+type '[new password]' for confirm
+vagrant reload
+```
+
+## How to resize disk and partition for large image
+### Resize Disk Size
+
+Install plugin
+```
+vagrant plugin install vagrant-disksize
+```
+
+Set new size on Vagrantfile
+```
+Vagrant.configure('2') do |config|
+  ...
+  config.disksize.size = '60GB'
+end
+```
+
+Reload
+```
+vagrant reload
+```
+
+### Resize Partition Size
+Install parted ( partition tool )
+```
+tdnf update && tdnf install parted
+```
+
+Check disk
+```
+fdisk -l
+```
+
+Resize partition
+```
+parted [device, ie. /dev/sda]
+resizepart [Partition Number] [Size]
+quit
+```
+
+Check disk size
+```
+df -h
+```
+
+Reboot to re-mount (or manual mount)
+```
+vagrant halt && vagrant up
+```
+
 ## How to start container
 ```
 vagrant ssh

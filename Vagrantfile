@@ -8,14 +8,14 @@ Vagrant.configure("2") do |config|
     d.vm.hostname = "photon-drone-expo"
   end
   config.vm.boot_timeout = 600
+  config.disksize.size = '40GB'
 
   config.vm.network "private_network", ip: "10.1.120.10"
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "2048"
+    vb.memory = "8192"
   end
 
-  config.ssh.password = "vagrant"
   config.vm.provision :shell , path: "bootstrap.sh"
 
 end
